@@ -13,7 +13,8 @@ urlpatterns = router.urls
 
 
 urlpatterns += [
-    path('api/v1/init/', views.init_view, name='api'),
-    path('api/v1/<app_label>/<model_name>/', views.api_view, name='api'),
+    path('api/v1/init/', views.InitView.as_view(), name='init'),
+    path('api/v1/login/', views.LoginView.as_view(), name='login'),
+    path('api/v1/<app_label>/<model_name>/', views.api_view, name='model-endpoint'),
     re_path('.*', views.index, name='index'),
 ]
