@@ -4,7 +4,7 @@ from django.conf import settings
 
 CORS_ALLOW_ORIGIN = getattr(settings, 'CORS_ALLOW_ORIGIN', 'http://localhost:3000')
 CORS_ALLOW_METHODS = getattr(settings, 'CORS_ALLOW_METHODS', ['POST', 'GET', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'])
-CORS_ALLOW_HEADERS = getattr(settings, 'CORS_ALLOW_HEADERS', ['*', 'content-type', 'authorization'])
+CORS_ALLOW_HEADERS = getattr(settings, 'CORS_ALLOW_HEADERS', ['*', 'content-type', 'authorization', 'X-CSRFTOKEN'])
 CORS_ALLOW_CREDENTIALS = getattr(settings, 'CORS_ALLOW_CREDENTIALS', True)
 CORS_EXPOSE_HEADERS = getattr(settings, 'CORS_EXPOSE_HEADERS', ['content-type', 'location', '*'])
 CORS_REQUEST_HEADERS = getattr(settings, 'CORS_REQUEST_HEADERS', ['*'])

@@ -1,16 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, Http404
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.utils.decorators import method_decorator
+from django.conf import settings
+from django.urls import reverse
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
+import json
 from .admin import site
 from .serializers import CommonModelSerializer, CommonModelListSerializer
 from .utils import LimitOffsetPagination
-from django.conf import settings
-from django.urls import reverse
 
 
+@ensure_csrf_cookie
 def index(request):
     site_name = site.get_site_name()
     base_admin_url = site.get_base_admin_url()
@@ -22,6 +26,7 @@ def index(request):
 
 
 class InitView(APIView):
+    @method_decorator(ensure_csrf_cookie)
     def get(self, request, format=None):
         data = {
             'user': {
@@ -130,26 +135,31 @@ def api_view(request, name, pk):
     return JsonResponse({'version': '1.0', 'logged_in': False})
 
 
+@ensure_csrf_cookie
+def login_view(request):
+    data = {
+        'user': {'authenticated': False}
+    }
 
-class LoginView(APIView):
-    def post(self, request, format=None):
+    if request.method == 'POST':
+        try:
+            request_data = json.loads(request.body)
+        except:
+            return JsonResponse({'error': 'Invalid request data'}, status=400)
+        else:
+            if not isinstance(request_data, dict):
+                return JsonResponse({'error': 'Invalid request data'}, status=400)
 
-        data = {
-            'user': {'authenticated': False}
-        }
-
-        username = request.data.get('username')
-        password = request.data.get('password')
+        username = request_data.get('username')
+        password = request_data.get('password')
 
         if not username or not password:
-            return Response({'error': 'Incorrect username or password'})
+            return JsonResponse({'error': 'Incorrect username or password'}, status=400)
 
         user = authenticate(request, username=username, password=password)
+        
         if user is not None:
             login(request, user)
-            return Response({'username': user.username})
-
-        if request.user.is_authenticated:
             data['user'] = {
                 'authenticated': True,
                 'is_active': request.user.is_active,
@@ -159,4 +169,12 @@ class LoginView(APIView):
                 'name': request.user.get_short_name() or request.user.get_username(),
             }
 
-        return Response(data)
+    return JsonResponse(data)
+
+
+def logout_view(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            logout(request)
+
+    return JsonResponse({'success': True})
