@@ -157,6 +157,9 @@ def login_view(request):
             return JsonResponse({'error': 'Incorrect username or password'}, status=400)
 
         user = authenticate(request, username=username, password=password)
+
+        if not user:
+            return JsonResponse({'error': 'Incorrect username or password'}, status=400)
         
         if user is not None:
             login(request, user)
