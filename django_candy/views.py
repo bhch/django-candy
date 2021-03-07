@@ -86,6 +86,10 @@ class CommonViewSet(viewsets.ModelViewSet):
     #filterset_class = ChallanFilterSet
     pagination_class = LimitOffsetPagination
 
+    def initial(self, request, *args, **kwargs):
+        self.set_model()
+        super().initial(request, *args, **kwargs)
+
     def set_model(self):
         if hasattr(self, 'model'):
             return
@@ -102,7 +106,6 @@ class CommonViewSet(viewsets.ModelViewSet):
         self.model_admin = model_admin
 
     def get_queryset(self):
-        self.set_model()
         return self.model.objects.all()
 
     def get_serializer_context(self):
@@ -112,7 +115,6 @@ class CommonViewSet(viewsets.ModelViewSet):
         }
 
     def get_serializer_class(self):
-        self.set_model()
         if self.action: # == 'list':
             CommonModelListSerializer.Meta.model = self.model
             CommonModelListSerializer.Meta.model_admin = self.model_admin
