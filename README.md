@@ -26,11 +26,6 @@ INSTALLED_APPS = [
     # ...
     'django_candy',
 ]
-
-MIDDLEWARE = [
-    # ...
-    'django_candy.middleware.CorsMiddleware',
-]
 ```
 
 #### 3. Modify your project's urls.py
