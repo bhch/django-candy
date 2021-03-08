@@ -106,7 +106,8 @@ class CommonViewSet(viewsets.ModelViewSet):
         self.model_admin = model_admin
 
     def get_queryset(self):
-        return self.model.objects.all()
+        queryset = self.model.objects.all()
+        return self.model_admin.get_filtered_queryset(self.request, queryset, self.request.query_params)
 
     def get_serializer_context(self):
         return {

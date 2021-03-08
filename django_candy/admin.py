@@ -7,6 +7,9 @@ from django.contrib.admin.utils import label_for_field
 from django.urls import reverse
 
 
+
+
+
 class ModelAdmin:
     list_display = []
 
@@ -66,6 +69,8 @@ class ModelAdmin:
 
         return labels
 
+    def get_filtered_queryset(self, request, queryset, query_params):
+        return queryset
 
 
 class AdminSite:
