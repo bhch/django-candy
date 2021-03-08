@@ -12,6 +12,7 @@ from django.urls import reverse
 
 class ModelAdmin:
     list_display = []
+    list_filters = []
 
     autocomplete_fields = ()
     raw_id_fields = ()
@@ -44,6 +45,7 @@ class ModelAdmin:
             'verbose_name_plural': self.model._meta.verbose_name_plural,
             'list_display': self.get_list_display(),
             'list_display_labels': self.get_list_display_labels(),
+            'list_filters': self.get_list_filters(),
             'form_schema': self.form_schema,
             'permissions': [],
         }
@@ -68,6 +70,9 @@ class ModelAdmin:
             labels.append(capfirst(label_for_field(item, self.model, self)))
 
         return labels
+
+    def get_list_filters(self):
+        return self.list_filters
 
     def get_filtered_queryset(self, request, queryset, query_params):
         return queryset
