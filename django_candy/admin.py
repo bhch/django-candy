@@ -7,9 +7,6 @@ from django.contrib.admin.utils import label_for_field
 from django.urls import reverse
 
 
-
-
-
 class ModelAdmin:
     list_display = []
     list_filters = []
@@ -84,8 +81,13 @@ class AdminSite:
         #self._side_menu = []
         #self._top_menu = []
 
+    @classmethod
+    def get_registry_key(cls, model):
+        """Returns the key used in self._registry dict for the given model"""
+        return '.'.join([model._meta.app_label, model.__name__.lower()])
+
     def register(self, model, admin_class=None):
-        key = '.'.join([model._meta.app_label, model.__name__.lower()])
+        key = self.get_registry_key(mdoel)
 
         if key in self._registry:
             return
@@ -95,6 +97,14 @@ class AdminSite:
 
         model_admin = admin_class(model)
         self._registry[key] = (model, model_admin)
+
+    def unregister(self, model):
+        key = self.get_registry_key(model)
+
+        if key not in self._registry:
+            return
+
+        del self._registry[key]
 
     def get_registry(self):
         return copy.deepcopy(self._registry)
