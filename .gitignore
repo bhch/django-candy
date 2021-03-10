@@ -4,6 +4,7 @@ __pycache__/
 env/
 bin/
 build/
+_build/
 develop-eggs/
 dist/
 eggs/
