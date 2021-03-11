@@ -87,7 +87,7 @@ class AdminSite:
         return '.'.join([model._meta.app_label, model.__name__.lower()])
 
     def register(self, model, admin_class=None):
-        key = self.get_registry_key(mdoel)
+        key = self.get_registry_key(model)
 
         if key in self._registry:
             return
