@@ -1,0 +1,33 @@
+Django Candy 0.7.2 release notes
+================================
+
+Mar 08, 2021
+------------
+
+Candy is still a pre-alpha project. 
+
+This version adds some :ref:`new features<whats-new-0.7.1>`.
+
+.. _whats-new-0.7.1:
+
+What's new in v0.7.2
+~~~~~~~~~~~~~~~~~~~~
+
+Login and logout
+^^^^^^^^^^^^^^^^
+
+Admin now supports logging in and out.
+
+List page search and filters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Support for searching a filtering on the list page.
+
+Frontend build v0.7.1
+^^^^^^^^^^^^^^^^^^^^^
+
+Frontend build is updated to v0.7.1.
+
+Note: Django Candy's frontend site is developed separately from the backend app. So 
+the versions of frontend and backend may not always match.
+

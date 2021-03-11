@@ -1,0 +1,10 @@
+Django Candy 0.7.1 release notes
+================================
+
+Mar 04, 2021
+------------
+
+Bug fixes
+~~~~~~~~~
+
+- Included django-rest-framework dependency in install requirements. 
