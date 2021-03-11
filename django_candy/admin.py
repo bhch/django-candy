@@ -33,16 +33,16 @@ class ModelAdmin:
         self.model = model
         self.app = model._meta.app_label
 
-    def get_init_data(self, user):
+    def get_init_data(self, request):
         data = {
             'name': self.model.__name__.lower(),
             'endpoint': '%s/%s' % (self.model._meta.app_label, self.model.__name__.lower()), # :TODO: reverse url
             'app_label': self.model._meta.app_label,
             'verbose_name': self.model._meta.verbose_name,
             'verbose_name_plural': self.model._meta.verbose_name_plural,
-            'list_display': self.get_list_display(),
-            'list_display_labels': self.get_list_display_labels(),
-            'list_filters': self.get_list_filters(),
+            'list_display': self.get_list_display(request),
+            'list_display_labels': self.get_list_display_labels(request),
+            'list_filters': self.get_list_filters(request),
             'form_schema': self.form_schema,
             'permissions': [],
         }
@@ -55,20 +55,20 @@ class ModelAdmin:
             'app_label': self.model._meta.app_label,
         }
 
-    def get_list_display(self):
+    def get_list_display(self, request):
         if not len(self.list_display):
             return ['__str__']
         return self.list_display
 
-    def get_list_display_labels(self):
+    def get_list_display_labels(self, request):
         labels = []
 
-        for item in self.get_list_display():
+        for item in self.get_list_display(request):
             labels.append(capfirst(label_for_field(item, self.model, self)))
 
         return labels
 
-    def get_list_filters(self):
+    def get_list_filters(self, request):
         return self.list_filters
 
     def get_filtered_queryset(self, request, queryset, query_params):
@@ -113,7 +113,7 @@ class AdminSite:
         key = '.'.join([app_label, model_name])
         return self._registry.get(key, (None, None))
 
-    def get_side_menu(self):
+    def get_side_menu(self, request):
         """
             Menu structure:
 
@@ -153,10 +153,10 @@ class AdminSite:
 
 
 
-    def get_top_menu(self):
+    def get_top_menu(self, request):
         return []
 
-    def get_app_structure(self, user):
+    def get_app_structure(self, request):
         data = {}
 
         registry = self._registry
@@ -164,7 +164,7 @@ class AdminSite:
         for key in registry:
             model, model_admin = registry[key]
 
-            init_data = model_admin.get_init_data(user)
+            init_data = model_admin.get_init_data(request)
 
             app_label = init_data['app_label']
 

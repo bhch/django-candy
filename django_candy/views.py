@@ -45,9 +45,9 @@ class InitView(APIView):
             }
 
 
-            data['apps'] = site.get_app_structure(request.user)
-            data['side_menu'] = site.get_side_menu()
-            data['top_menu'] = site.get_top_menu()
+            data['apps'] = site.get_app_structure(request)
+            data['side_menu'] = site.get_side_menu(request)
+            data['top_menu'] = site.get_top_menu(request)
             data['site_name'] = site.get_site_name()
         return Response(data)
 
