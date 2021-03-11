@@ -8,7 +8,7 @@
 
 ## Installation
 
-**/!\ Note:** This is a pre-alpha project. Most of the things don't work. 
+**/!\ Attention:** This is a pre-alpha project. Most of the things don't work. 
 However, if you're curious, you can still try it out.
 
 #### 1. Install using pip
@@ -39,48 +39,10 @@ urlpatterns = [
 ]
 ```
 
-## Usage
+## Documentation
 
-After installation, you can visit `http://127.0.0.1:8000/candy/` to see the 
-admin interface in action.
+Docs can be found at http://django-candy.rtfd.io
 
-#### 1. Register your models
-
-The API is pretty similar to that of Django's default admin:
-
-```python
-# admin.py
-
-from django_candy import admin
-from myapp.models import MyModel
-
-admin.site.register(MyModel)
-```
-
-Reload the admin page and you should see your registered model there.
-
-Currently, the add/edit pages don't work. You can add some objects to your 
-model from django shell and you'll see them listed on list page.
-
-#### 2. `ModelAdmin` class
-
-There's also a `ModelAdmin` class for better control over the admin ui:
-
-```python
-# admin.py
-
-from django_candy import admin
-from myapp.models import MyModel
-
-class MyModelAdmin(admin.ModelAdmin):
-    list_display = ['field_1', 'field_2', 'etc']
-
-admin.site.register(MyModel, MyModelAdmin)
-```
-
----
-
-Full docs coming in due time.
 
 ## Frontend
 
