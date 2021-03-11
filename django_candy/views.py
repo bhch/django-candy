@@ -119,7 +119,7 @@ class CommonViewSet(viewsets.ModelViewSet):
         if self.action: # == 'list':
             CommonModelListSerializer.Meta.model = self.model
             CommonModelListSerializer.Meta.model_admin = self.model_admin
-            CommonModelSerializer.Meta.fields = self.model_admin.get_list_display()
+            CommonModelSerializer.Meta.fields = self.model_admin.get_list_display(self.request)
             return CommonModelListSerializer
 
 
