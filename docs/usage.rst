@@ -96,8 +96,10 @@ This method returns a queryset.
 List filters
 ------------
 
-The ``list_filters`` option doesn't work like in Django admin, and Candy doesn't 
-provide automatic filtering either.
+Django's ``list_filter`` option doesn't work. Instead, use ``list_filters`` 
+(note the extra "**s**" at the end). 
+
+Candy doesn't provide automatic filtering either.
 
 ``list_filters`` option should be a list which contains dicts of all the 
 filters and options.

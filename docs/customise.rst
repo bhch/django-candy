@@ -1,6 +1,15 @@
 Customising the admin site
 ========================== 
 
+Changing site name
+------------------
+
+Use the setting ``CANDY_SITE_NAME`` to set a name for the admin site.
+
+.. code-block:: python
+
+    CANDY_SITE_NAME = 'My Admin Site'
+
 Changing logos
 --------------
 

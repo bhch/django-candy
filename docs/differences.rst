@@ -32,7 +32,8 @@ See :ref:`Usage docs on list search <usage-list-search>` for details.
 List filters
 ------------
 
-``list_filters`` don't work similar to Django admin's. 
+Django admin's ``list_filter`` doesn't work. Instead, use ``list_filters`` 
+(note the extra "**s**" at the end).
 
 And Candy doesn't provide automatic filtering. You're required to filter the 
 results yourself using :meth:`~django_candy.admin.ModelAdmin`. 
